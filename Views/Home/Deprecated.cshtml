@@ -1,0 +1,54 @@
+﻿@model CloserSdk.Models.ItemTypesModel
+
+@{
+    ViewBag.Title = "Deprecated";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+
+    function DisplayProgressMessage() {
+        var sixtyMinutes = 60 * 60,
+            display = document.querySelector('#time');
+        startTimer(sixtyMinutes, display);
+    }
+
+    function startTimer(duration, display) {
+        var timer = duration, minutes, seconds;
+        setInterval(function () {
+            minutes = parseInt(timer / 60, 10);
+            seconds = parseInt(timer % 60, 10);
+
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            display.textContent = minutes + ":" + seconds;
+
+            if (--timer < 0) {
+                timer = duration;
+            }
+        }, 1000);
+    }
+</script>
+
+<span style="margin-left:10px">Processing </span><span id="time">00:00</span> minutes
+<h2>Deprecated Items from Datasets and Questionnaires</h2>
+
+@using (Html.BeginForm("Deprecated", "Home", FormMethod.Post, new { id = "SearchForm2" }))
+{
+    <div style="width:100%; float:left; margin-bottom:20px">
+        <input name="command" type="submit" value="Data File" id="searchq" , onclick="DisplayProgressMessage()" style="font:bold; font-size:large; float:left;width:50%" />
+        <input name="command" type="submit" value="Instrument" id="searchv" , onclick="DisplayProgressMessage()" style="font-size:large; float:left;width:50%" />
+    </div>
+    <div>
+        @switch (Model.ItemType)
+        {
+            case "Data File":
+                @Html.Partial("~/Views/Home/_Datasets.cshtml")
+                break;
+            case "Instrument":
+                @Html.Partial("~/Views/Home/_Instruments.cshtml")
+                break;
+        }
+    </div>
+}

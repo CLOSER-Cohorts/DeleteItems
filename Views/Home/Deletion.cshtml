@@ -1,0 +1,48 @@
+﻿
+@model CloserSdk.Models.ItemTypesModel
+
+@{
+                /**/
+
+                ViewBag.Title = "Deletion";
+
+}
+
+
+<h2>List of Deprecated Items</h2>
+
+@using (Html.BeginForm("Deletion", "Home", FormMethod.Post, new { id = "SearchForm2" }))
+{
+
+    if (Model.Deprecated.Count() != 0)
+    {
+        <strong>Total : @Model.Deprecated.Sum(x => x.Total).ToString()</strong>
+
+        <table class="responsive-card-table unstriped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="font-size:medium; width:10%" align="left">Item Type</th>
+                    <th style="font-size:medium; width:25%" align="left">Code</th>
+                    <th style="font-size:medium; width:100px" align="left">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Deprecated)
+                {
+                    <tr>
+                        <td style="width:10%; font-size:medium">@Model.DataItem(item.Text.ToString())</td>
+                        <td style="width:25%; font-size:medium">@item.Text.ToString()</td>
+                        <td style="font-size:medium; width:100px" align="left">@item.Total</td>
+                    </tr>
+                }
+                <tr>
+                    <td style="font-size:medium" data-label="AgencyId">Total</td>
+                    <td></td>
+                    <td style="font-size:medium; width:100px" align="left">@Model.Deprecated.Sum(x => x.Total)</td>
+                </tr>
+            </tbody>
+        </table>
+        <input name="command" type="submit" value="Delete" id="delete" , style="float:left; font-size:medium; margin-top:20px; margin-left:10px" />
+    }
+}
+

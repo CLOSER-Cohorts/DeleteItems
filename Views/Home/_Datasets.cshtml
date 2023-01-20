@@ -1,0 +1,95 @@
+﻿@model CloserSdk.Models.ItemTypesModel
+@{
+    Layout = null;
+}
+
+
+<div>
+    @if (Model.Breakdown.Count() != 0)
+    {
+    <div>
+        <strong>Total : @Model.Breakdown.Count.ToString()</strong><span style="margin-left:10px">Processing </span><span id="time">00:00</span> minutes
+
+        <table class="responsive-card-table unstriped" style="width:100%">
+            <thead>
+                <tr>
+                    <th style="font-size:small; width:18%"></th>
+                    <th style="font-size:small; width:35%"></th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Datasets</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right"></th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right"></th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right"></th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right"></th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right"></th>
+                    <th style="font-size:small; width:5%; text-align:left" align="right">Questionnaires</th>
+                </tr>
+                <tr>
+                    <th style="font-size:small; width:18%">CompositeId</th>
+                    <th style="font-size:small; width:35%">Description</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Variables</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Deprecated</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Undeprecated</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Questions</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Deprecated</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Undeprecated</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Questions</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Deprecated</th>
+                    <th style="font-size:small; width:5%; text-align:right" align="right">Undeprecated</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Breakdown)
+                {
+                    switch (item.IsDeprecated)
+                    {
+                        case true:
+                            <tr style="background-color:green; color:white">
+                                <td style="font-size:small; width:18%">@item.CompositeId</td>
+                                <td style="font-size:small; width:35%">@item.Description</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Variables</td>
+                                <td style="font-size:small; width:5%" align="right">@item.VariablesDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.VariablesUndeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Questions</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionsDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionsUndeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Questionnaires</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionnairesDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionnairesUndeprecated</td>
+                            </tr>
+                            break;
+                        case false:
+                            <tr style="background-color:red; color:white">
+                                <td style="font-size:small; width:18%">@item.CompositeId</td>
+                                <td style="font-size:small; width:35%">@item.Description</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Variables</td>
+                                <td style="font-size:small; width:5%" align="right">@item.VariablesDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.VariablesUndeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Questions</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionsDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionsUndeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.Questionnaires</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionnairesDeprecated</td>
+                                <td style="font-size:small; width:5%" align="right">@item.QuestionnairesUndeprecated</td>
+                            </tr>
+                            break;
+                    }
+                }
+
+                <tr>
+                    <td style="font-size:small; width:15%">Total</td>
+                    <td></td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.Variables)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.VariablesDeprecated)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.VariablesUndeprecated)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.Questions)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.QuestionsDeprecated)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.QuestionsUndeprecated)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.Questionnaires)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.QuestionnairesDeprecated)</td>
+                    <td style="font-size:small; width:5%" align="right">@Model.Breakdown.Sum(x => x.QuestionnairesUndeprecated)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    }
+</div>
